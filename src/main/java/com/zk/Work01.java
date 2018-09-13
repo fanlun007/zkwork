@@ -38,7 +38,6 @@ public class Work01 {
             String[] arr_first = null;
             while (invalidDiv) {
                 log.info("输入两个除数整数:");
-                inScan = new Scanner(System.in);
                 String[] two_div = new Scanner(System.in).nextLine().split("\\s+");
                 if (checkNum(two_div)) {
                     arr_first = two_div;
@@ -47,19 +46,20 @@ public class Work01 {
                     log.info("输入除数不为数字或包含0,重新输入");
                 }
             }
-            if (!StringUtils.isEmpty(arr_first)) {
-                List<Integer> canList = new ArrayList<>();
-                for (int i = low; i <= high; i++) {
-                    if (canDivInArr(i, arr_first)) {
-                        canList.add(i);
-                    }
-                }
-                if (canList.size() != 0) {
-                    System.out.println("可以被整除的数: " + canList.toString());
-                }else{
-                    System.out.println("没有可以被整除的数");
+            printArr(arr_first, low, high);
+            invalidDiv = true;
+            String[] arr_second = null;
+            while (invalidDiv){
+                log.info("输入3个除数整数");
+                String[] three_div = new Scanner(System.in).nextLine().split("\\s+");
+                if (checkNum(three_div)) {
+                    arr_second = three_div;
+                    invalidDiv  =false;
+                } else{
+                    log.info("输入除数不为数字或包含0,重新输入");
                 }
             }
+            printArr(arr_second, low, high);
         }
 
     }
@@ -67,6 +67,22 @@ public class Work01 {
     public static void main(String[] args) {
         Work01 work01 = new Work01();
         work01.input();
+    }
+
+    public void printArr(String[] arr_first, int low, int high){
+        if (!StringUtils.isEmpty(arr_first)) {
+            List<Integer> canList = new ArrayList<>();
+            for (int i = low; i <= high; i++) {
+                if (canDivInArr(i, arr_first)) {
+                    canList.add(i);
+                }
+            }
+            if (canList.size() != 0) {
+                System.out.println("可以被整除的数: " + canList.toString());
+            }else{
+                System.out.println("没有可以被整除的数");
+            }
+        }
     }
 
     public boolean canDivInArr(int dividend, String[] arr) {
